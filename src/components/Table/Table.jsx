@@ -2,7 +2,21 @@ import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Row from './Row';
 import AddDataForm from '../Form/AddDataForm';
+import Modal from 'react-modal';
 import './Table.module.css';
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+Modal.setAppElement('#root');
 
 const Table = ({ data, addRow }) => {
   const [showForm, setShowForm] = useState(false);
@@ -13,8 +27,15 @@ const Table = ({ data, addRow }) => {
       <br/>
       <br/>
 
-      { showForm ? <AddDataForm setShowForm={setShowForm} addRow={addRow} /> : null }
-      
+      <Modal 
+        isOpen={showForm}
+        onRequestClose={() => setShowForm(false)}
+        style={customStyles}
+        contentLabel="Add new data!"
+      >
+        <AddDataForm addRow={addRow} setShowForm={setShowForm} /> 
+      </Modal>
+
       <table>
         <Header />
 

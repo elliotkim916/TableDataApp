@@ -4,7 +4,7 @@ import Table from './components/Table/Table';
 import TableView from './components/Table/TableView';
 import './App.css';
 
-const App = (props) => {
+const App = () => {
   const [data, setData] = useState([
     {
       id: Math.random(),
@@ -62,10 +62,16 @@ const App = (props) => {
     },
   ]);
   
-  const deleteRow = (id) => {
+  const deleteRow = (id, history) => {
     let copyData = data;
-    copyData = copyData.filter(data => data.id.toString() !== id);
-    setData(copyData);
+    const toDelete = window.confirm('Are you sure you want to delete this row?');
+
+    if (toDelete) {
+      copyData = copyData.filter(data => data.id !== id);
+      setData(copyData);
+      alert('You have successfully deleted your data!');
+      history.push('/');
+    }
   };
 
   const addRow = (newData) => {
@@ -77,11 +83,8 @@ const App = (props) => {
 
   const updateRow = (newData) => {
     let copyData = data;
-    let dataToUpdate = copyData.find(data => data.id === newData.id);
     const index = copyData.findIndex(item => item.id === newData.id);
-
-    dataToUpdate = {...newData};
-    copyData.splice(index, 1, dataToUpdate);
+    copyData.splice(index, 1, newData);
     setData(copyData);
 
     alert('You have successfully updated your data!');

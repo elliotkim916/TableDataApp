@@ -25,6 +25,7 @@ const AddDataForm = ({ setShowForm, addRow }) => {
         }}
         validationSchema={AddDataSchema}
         onSubmit={(values) => {
+          values = { ...values, id: Math.random() }
           addRow(values);
           setShowForm(false);
         }}

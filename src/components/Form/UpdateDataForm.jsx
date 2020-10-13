@@ -34,25 +34,25 @@ const UpdateDataForm = ({ setShowUpdateForm, rowData, updateRow }) => {
           history.push('/');
         }}
       >
-        {({ errors, touched, isSubmitting, values, handleChange }) => (
+        {({ errors, touched, isSubmitting, values }) => (
           <Form>
             <h3>Add new data below!</h3>
-            <Field placeholder="Name?" id="name" name="name" value={values.name} onChange={handleChange('name')} /><br/>
+            <Field placeholder="Name?" id="name" name="name" value={values.name} /><br/>
             {errors.name && touched.name ? <div>{errors.name}</div> : null}
 
-            <Field placeholder="Age?" id="age" name="age" value={values.age} onChange={handleChange('age')} /><br/>
+            <Field placeholder="Age?" id="age" name="age" value={values.age} /><br/>
             {errors.age && touched.age ? <div>{errors.age}</div> : null}
 
-            <Field placeholder="Occupation?" id="occupation" name="occupation" value={values.occupation} onChange={handleChange('occupation')} /><br/>
+            <Field placeholder="Occupation?" id="occupation" name="occupation" value={values.occupation} /><br/>
             {errors.occupation && touched.occupation ? <div>{errors.occupation}</div> : null}
 
-            <Field placeholder="Favorite Dish?" id="favoriteDish" name="favoriteDish" value={values.favoriteDish} onChange={handleChange('favoriteDish')} /><br/>
+            <Field placeholder="Favorite Dish?" id="favoriteDish" name="favoriteDish" value={values.favoriteDish} /><br/>
             {errors.favoriteDish && touched.favoriteDish ? <div>{errors.favoriteDish}</div> : null}
 
-            <Field placeholder="Favorite Vacation Spot?" id="favoriteVacationSpot" name="favoriteVacationSpot" value={values.favoriteVacationSpot} onChange={handleChange('favoriteVacationSpot')} /><br/>
+            <Field placeholder="Favorite Vacation Spot?" id="favoriteVacationSpot" name="favoriteVacationSpot" value={values.favoriteVacationSpot} /><br/>
             {errors.favoriteVacationSpot && touched.favoriteVacationSpot ? <div>{errors.favoriteVacationSpot}</div> : null}
 
-            <Field placeholder="Favorite Destination?" id="favoriteDestination" name="favoriteDestination" value={values.favoriteDestination} onChange={handleChange('favoriteDestination')}/><br/>
+            <Field placeholder="Favorite Destination?" id="favoriteDestination" name="favoriteDestination" value={values.favoriteDestination} /><br/>
             {errors.favoriteDestination && touched.favoriteDestination ? <div>{errors.favoriteDestination}</div> : null}
 
             <button type="submit" disabled={isSubmitting}>Update</button>

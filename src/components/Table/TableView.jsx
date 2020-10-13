@@ -1,15 +1,41 @@
 import React, { useState } from 'react';
 import UpdateDataForm from '../Form/UpdateDataForm';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+Modal.setAppElement('#root');
 
 const TableView = ({ match, data, deleteRow, updateRow, history }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const rowData = data.find(row => row.id.toString() === match.params.id);
-  const { name, age, occupation, favoriteDish, favoriteVacationSpot, favoriteDestination } = rowData;
 
+  if (!rowData) {
+    return null;
+  }
+
+  const { name, age, occupation, favoriteDish, favoriteVacationSpot, favoriteDestination } = rowData;
+  
   return (
     <React.Fragment>
-      { showUpdateForm ? <UpdateDataForm rowData={rowData} setShowUpdateForm={setShowUpdateForm} updateRow={updateRow} /> : null }
-
+      <Modal 
+        isOpen={showUpdateForm}
+        onRequestClose={() => setShowUpdateForm(false)}
+        style={customStyles}
+        contentLabel="Update your data below!"
+      >
+        <UpdateDataForm rowData={rowData} setShowUpdateForm={setShowUpdateForm} updateRow={updateRow} />
+      </Modal>
+      
       <table>
         <tbody>
           <tr>
@@ -26,10 +52,7 @@ const TableView = ({ match, data, deleteRow, updateRow, history }) => {
       <button type="button" onClick={() => setShowUpdateForm(true)}>Update</button>
       <button 
         type="button" 
-        onClick={() => {
-          deleteRow(match.params.id);
-          history.push('/');
-        }}
+        onClick={() => deleteRow(Number(match.params.id), history)}
       >
         Delete
       </button>
